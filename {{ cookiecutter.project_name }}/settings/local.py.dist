@@ -1,0 +1,18 @@
+#--coding: utf8--
+
+# DO NOT IMPORT * from settings.common AS IT MASKS ENV`S IMPORTS!
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '{{ cookiecutter.local_db_name }}',
+        'USER': '{{ cookiecutter.local_db_user }}',
+        'PASSWORD': '{{ cookiecutter.local_db_password }}',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+
+SECRET_KEY = '{{ cookiecutter.secret_key }}'

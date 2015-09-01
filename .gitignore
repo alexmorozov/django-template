@@ -1,0 +1,89 @@
+!.gitkeep
+
+{{ cookiecutter.project_name }}/settings/local.py
+{{ cookiecutter.project_name }}/static/bower_components/
+{{ cookiecutter.project_name }}/apps/*/static/scss/*.css
+{{ cookiecutter.project_name }}/static/scss/*.css
+{{ cookiecutter.project_name }}/static/scss/*/*.css
+{{ cookiecutter.project_name }}/apps/*/static/coffee/*.js
+{{ cookiecutter.project_name }}/static/coffee/*.js
+{{ cookiecutter.project_name }}/static/coffee/*/*.js
+
+.idea
+/media/*
+/cover/
+Procfile.local
+
+# Celery
+celerybeat.pid
+celeryev.pid
+
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+#Translations
+#*.mo
+
+#Mr Developer
+.mr.developer.cfg
+
+*.sqlite3
+*.db
+*.rdb
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+.cache
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+
+/.pydevproject
+/.externalToolBuilders/
+
+# NPM packages folder.
+node_modules/
+
+# Brunch folder for temporary files.
+tmp/
+
+# MS Office temp files
+~$*

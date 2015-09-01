@@ -1,0 +1,12 @@
+Django==1.8.4
+celery==3.1.18
+django-bower==5.0.4
+django-extensions==1.5.5
+django-pipeline==1.5.2
+fabric==1.10.2
+hamlpy==0.82.2
+ipdb==0.8.1
+ipython[notebook]
+psycopg2==2.6.1
+raven==5.1.1
+Werkzeug==0.10.4

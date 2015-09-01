@@ -1,0 +1,14 @@
+{
+    "project_name": "newproject",
+    "project_short_description": "Краткое описание сайта",
+    "admin_name": "Alex Morozov",
+    "admin_email": "am@kupo.la",
+    "version": "0.1.0"
+    "deploy_host": "localhost",
+    "site_name": "www.site.ru",
+    "local_db_name": "local_database",
+    "local_db_user": "db_username",
+    "local_db_password": "db_password",
+    "sentry_dsn": "",
+    "secret_key": ""
+}
