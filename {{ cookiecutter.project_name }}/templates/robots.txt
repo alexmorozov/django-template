@@ -1,0 +1,5 @@
+Host: {{ cookiecutter.site_name }}
+
+User-agent: *
+Disallow: /admin/
+Disallow: /api/

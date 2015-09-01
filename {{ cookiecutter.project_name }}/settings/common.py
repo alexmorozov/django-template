@@ -89,7 +89,7 @@ TEMPLATE_DIRS = (
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP  # NOQA
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-    # add context processors here
+    'django.core.context_processors.request',
 )
 
 STATICFILES_FINDERS += (
