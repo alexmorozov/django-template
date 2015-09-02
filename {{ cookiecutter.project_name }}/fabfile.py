@@ -6,7 +6,7 @@ from kupola.fabric_class import DjangoFabric,\
 
 
 class Fabric(DjangoFabric):
-    host = '{{ cookiecutter.deploy_host }}'
+    host = '{{ cookiecutter.production_host }}'
     app_name = '{{ cookiecutter.project_name }}'
     repository = 'git@repo.kupo.la:kupola/{{ cookiecutter.project_name }}.git'
     remote_db_name = '{{ cookiecutter.project_name }}'

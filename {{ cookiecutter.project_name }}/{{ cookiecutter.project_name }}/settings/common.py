@@ -19,6 +19,10 @@ TEST = 'test' in sys.argv
 
 ALLOWED_HOSTS = ['{{ cookiecutter.site_name }}']
 
+ADMINS = [
+    ('{{ cookiecutter.admin_name }}', '{{ cookiecutter.admin_email }}')
+]
+
 TIME_ZONE = 'Europe/Moscow'
 LANGUAGE_CODE = 'ru-ru'
 USE_I18N = True
