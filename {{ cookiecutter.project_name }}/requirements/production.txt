@@ -1,1 +1,2 @@
 -r common.txt
+git+ssh://git@repo.kupo.la/kupola/django-kupola.git@1.2.0
