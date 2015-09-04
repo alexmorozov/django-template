@@ -11,7 +11,7 @@ class Fabric(DjangoFabric):
     repository = 'git@repo.kupo.la:kupola/{{ cookiecutter.project_name }}.git'
     remote_db_name = '{{ cookiecutter.project_name }}'
     local_db_name = '{{ cookiecutter.local_db_name }}'
-    user = 'deployer'
+    use_bower = True
 
 
 __all__ = add_class_methods_as_functions(Fabric(), __name__)
