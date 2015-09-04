@@ -8,6 +8,7 @@
 {{ cookiecutter.project_name }}/apps/*/static/coffee/*.js
 {{ cookiecutter.project_name }}/static/coffee/*.js
 {{ cookiecutter.project_name }}/static/coffee/*/*.js
+/django-kupola/
 
 .idea
 /media/*
