@@ -1,7 +1,8 @@
 Django==1.8.4
 celery==3.1.18
 django-bower==5.0.4
-django-extensions==1.5.5
+django-extensions==1.5.9
+functools32==3.2.3-2
 django-pipeline==1.5.2
 fabric==1.10.2
 hamlpy==0.82.2

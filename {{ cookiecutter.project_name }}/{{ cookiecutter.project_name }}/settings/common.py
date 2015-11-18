@@ -121,6 +121,9 @@ STATICFILES_FINDERS += (
 # Параметры для удобного запуска ./manage.py shell_plus --notebook
 IPYTHON_ARGUMENTS = [
     '--ext', 'django_extensions.management.notebook_extension',
+]
+
+NOTEBOOK_ARGUMENTS = [
+    '--ip=0.0.0.0',
     '--no-browser',
-    '--ip', '0.0.0.0',
 ]
