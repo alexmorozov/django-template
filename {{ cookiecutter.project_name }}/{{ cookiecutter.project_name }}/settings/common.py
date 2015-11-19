@@ -12,7 +12,7 @@ def path(*a):
 
 # This trick allows to import apps without that prefixes
 sys.path.insert(0, path('apps'))
-sys.path.insert(0, path('libs'))
+sys.path.insert(0, path('lib'))
 sys.path.insert(1, path('.'))
 
 TEST = 'test' in sys.argv
