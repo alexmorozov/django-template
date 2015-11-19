@@ -102,6 +102,7 @@ STATICFILES_FINDERS += (
 
 BOWER_COMPONENTS_ROOT = path('static')
 BOWER_INSTALLED_APPS = (
+    'normalize-scss#3.0',
 )
 
 PIPELINE_COMPILERS = (
