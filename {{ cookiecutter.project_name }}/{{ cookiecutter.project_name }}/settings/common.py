@@ -106,9 +106,21 @@ BOWER_INSTALLED_APPS = (
 )
 
 PIPELINE_COMPILERS = (
-    'pipeline.compilers.sass.SASSCompiler',
+    'lib.sass.SASSCCompiler',
     'pipeline.compilers.coffee.CoffeeScriptCompiler',
 )
+
+
+def sass_load_paths(*apps):
+    """
+    A helper to make cross-imports of scss files possible
+    """
+    return ' '.join('--include-path %s/static' % path(app)
+                    for app in apps)
+
+# The paths to scss directories with files which should have a possibility of
+# importing each other.
+PIPELINE_SASSC_ARGUMENTS = sass_load_paths('', )
 
 PIPELINE_CSS_COMPRESSOR = None
 PIPELINE_JS_COMPRESSOR = None
