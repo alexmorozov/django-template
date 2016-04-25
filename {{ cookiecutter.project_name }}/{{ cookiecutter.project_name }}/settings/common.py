@@ -1,61 +1,30 @@
 # --coding: utf8--
-
 import os
 import sys
 
+
+TEST = 'test' in sys.argv
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def path(*a):
     return os.path.join(BASE_DIR, *a)
 
+
 # This trick allows to import apps without that prefixes
 sys.path.insert(0, path('apps'))
 sys.path.insert(0, path('lib'))
 sys.path.insert(1, path('.'))
 
-TEST = 'test' in sys.argv
+
+ROOT_URLCONF = '{{ cookiecutter.project_name }}.urls'
+WSGI_APPLICATION = '{{ cookiecutter.project_name }}.wsgi.application'
 
 ALLOWED_HOSTS = ['{{ cookiecutter.site_name }}']
 
 ADMINS = [
     ('{{ cookiecutter.admin_name }}', '{{ cookiecutter.admin_email }}')
 ]
-
-TIME_ZONE = 'Europe/Moscow'
-LANGUAGE_CODE = 'ru-ru'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
-
-MEDIA_URL = '/media/'
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = path('../media')
-STATIC_ROOT = path('../../static')
-
-STATICFILES_DIRS = (
-    path('static'),
-)
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
-MIDDLEWARE_CLASSES = (
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
-
-ROOT_URLCONF = '{{ cookiecutter.project_name }}.urls'
-WSGI_APPLICATION = '{{ cookiecutter.project_name }}.wsgi.application'
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -70,31 +39,67 @@ INSTALLED_APPS = (
     'lib',
 )
 
-COMMON_TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
+MIDDLEWARE_CLASSES = (
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-TEMPLATE_LOADERS = HAML_LOADERS + COMMON_TEMPLATE_LOADERS
-TEMPLATE_DIRS = (
-    path('templates'),
-)
-
+# CONTEXT PROCESSORS ----------------------------------------------------------
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP  # NOQA
 
-TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-    'django.core.context_processors.request',
+CONTEXT_PROCESSORS = TCP + [
+    'django.template.context_processors.request',
+]
+# -----------------------------------------------------------------------------
+
+
+# TEMPLATES -------------------------------------------------------------------
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': [path('templates')],
+        'OPTIONS': {
+            'context_processors': CONTEXT_PROCESSORS,
+        },
+    },
+]
+# -----------------------------------------------------------------------------
+
+
+# INTERNATIONALIZATION --------------------------------------------------------
+TIME_ZONE = 'Europe/Moscow'
+LANGUAGE_CODE = 'ru-ru'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+# -----------------------------------------------------------------------------
+
+
+# STATIC AND MEDIA FILES ------------------------------------------------------
+STATICFILES_DIRS = [
+    path('static'),
+]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-STATICFILES_FINDERS += (
-    'djangobower.finders.BowerFinder',
-)
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
-BOWER_COMPONENTS_ROOT = path('static')
-BOWER_INSTALLED_APPS = (
-    'normalize-scss#3.0',
-    'include-media#1.4'
-)
+STATIC_URL = '/static/'
+STATIC_ROOT = path('../../static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = path('../media')
+# -----------------------------------------------------------------------------
 
 
 def sass_load_paths(*apps):
@@ -104,10 +109,22 @@ def sass_load_paths(*apps):
     return ' '.join('--include-path %s/static' % path(app)
                     for app in apps)
 
-# The paths to scss directories with files which should have a possibility of
-# importing each other.
+# BOWER SETTINGS --------------------------------------------------------------
+STATICFILES_FINDERS += (
+    'djangobower.finders.BowerFinder',
+)
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+BOWER_COMPONENTS_ROOT = path('static')
+
+BOWER_INSTALLED_APPS = (
+    'normalize-scss#3',
+    'include-media#1.4'
+)
+
+# './manage.py bower_install' - install bower apps
+# -----------------------------------------------------------------------------
+
+# PIPELINE SETTINGS -----------------------------------------------------------
 STATICFILES_FINDERS += (
     'pipeline.finders.PipelineFinder',
 )
@@ -124,8 +141,9 @@ PIPELINE = {
     'DISABLE_WRAPPER': True,
     'SASS_ARGUMENTS': sass_load_paths('', ),
 }
+# -----------------------------------------------------------------------------
 
-# Параметры для удобного запуска ./manage.py shell_plus --notebook
+# IPYTHON NOTEBOOK ------------------------------------------------------------
 IPYTHON_ARGUMENTS = [
     '--ext', 'django_extensions.management.notebook_extension',
 ]
