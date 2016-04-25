@@ -1,12 +1,12 @@
 # --coding: utf8--
-
+from __future__ import unicode_literals
 from os.path import dirname
 
 from pipeline.conf import settings
 from pipeline.compilers import SubProcessCompiler
 
 
-class SASSCCompiler(SubProcessCompiler):
+class SASSCompiler(SubProcessCompiler):
     output_extension = 'css'
 
     def match_file(self, filename):
@@ -15,7 +15,7 @@ class SASSCCompiler(SubProcessCompiler):
     def compile_file(self, infile, outfile, outdated=False, force=False):
         command = "%s %s %s %s" % (
             'sassc',
-            settings.PIPELINE_SASSC_ARGUMENTS,
+            settings.SASS_ARGUMENTS,
             infile,
             outfile
         )

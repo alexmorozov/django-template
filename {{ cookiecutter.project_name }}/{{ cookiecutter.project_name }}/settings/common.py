@@ -3,12 +3,11 @@
 import os
 import sys
 
-
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def path(*a):
-    return os.path.join(PROJECT_ROOT, *a)
+    return os.path.join(BASE_DIR, *a)
 
 # This trick allows to import apps without that prefixes
 sys.path.insert(0, path('apps'))
@@ -67,17 +66,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'djangobower',
-    'hamlpy',
     'pipeline',
     'lib',
-)
-
-
-HAML_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'hamlpy.template.loaders.HamlPyFilesystemLoader',
-        'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
-    )),
 )
 
 COMMON_TEMPLATE_LOADERS = (
@@ -103,11 +93,7 @@ STATICFILES_FINDERS += (
 BOWER_COMPONENTS_ROOT = path('static')
 BOWER_INSTALLED_APPS = (
     'normalize-scss#3.0',
-)
-
-PIPELINE_COMPILERS = (
-    'lib.sass.SASSCCompiler',
-    'pipeline.compilers.coffee.CoffeeScriptCompiler',
+    'include-media#1.4'
 )
 
 
@@ -120,16 +106,24 @@ def sass_load_paths(*apps):
 
 # The paths to scss directories with files which should have a possibility of
 # importing each other.
-PIPELINE_SASSC_ARGUMENTS = sass_load_paths('', )
-
-PIPELINE_CSS_COMPRESSOR = None
-PIPELINE_JS_COMPRESSOR = None
-PIPELINE_DISABLE_WRAPPER = True
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 STATICFILES_FINDERS += (
     'pipeline.finders.PipelineFinder',
 )
+
+PIPELINE = {
+    'STYLESHEETS': {},
+    'JAVASCRIPT': {},
+    'COMPILERS': (
+        'lib.sass.SASSCompiler',
+        'pipeline.compilers.coffee.CoffeeScriptCompiler',
+    ),
+    'CSS_COMPRESSOR': None,
+    'JS_COMPRESSOR': None,
+    'DISABLE_WRAPPER': True,
+    'SASS_ARGUMENTS': sass_load_paths('', ),
+}
 
 # Параметры для удобного запуска ./manage.py shell_plus --notebook
 IPYTHON_ARGUMENTS = [

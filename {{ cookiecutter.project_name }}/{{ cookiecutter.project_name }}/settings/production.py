@@ -3,7 +3,7 @@
 from {{ cookiecutter.project_name }}.settings.common import *  # NOQA
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',

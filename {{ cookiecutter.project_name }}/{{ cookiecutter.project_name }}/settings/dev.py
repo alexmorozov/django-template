@@ -3,7 +3,7 @@
 from {{ cookiecutter.project_name }}.settings.common import *  # NOQA
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 if not TEST:
     INSTALLED_APPS += ('debug_toolbar', )
@@ -65,7 +65,3 @@ if TEST:
     INSTALLED_APPS += (
         'django_nose',
     )
-
-HAML_LOADERS = ('hamlpy.template.loaders.HamlPyFilesystemLoader',
-                'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',)
-TEMPLATE_LOADERS = HAML_LOADERS + COMMON_TEMPLATE_LOADERS
