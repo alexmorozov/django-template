@@ -1,5 +1,3 @@
-# --coding: utf8--
-
 from {{ cookiecutter.project_name }}.settings.common import *  # NOQA
 
 DEBUG = False

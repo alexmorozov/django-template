@@ -1,6 +1,3 @@
-# --coding: utf8--
-
-
 from kupola.fabric_class import DjangoFabric,\
     add_class_methods_as_functions
 

@@ -1,4 +1,3 @@
-# --coding: utf8--
 import os
 import sys
 
@@ -45,17 +44,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
-
-# CONTEXT PROCESSORS ----------------------------------------------------------
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP  # NOQA
-
-CONTEXT_PROCESSORS = TCP + [
-    'django.template.context_processors.request',
-]
 # -----------------------------------------------------------------------------
 
 
@@ -66,7 +57,12 @@ TEMPLATES = [
         'APP_DIRS': True,
         'DIRS': [path('templates')],
         'OPTIONS': {
-            'context_processors': CONTEXT_PROCESSORS,
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
         },
     },
 ]
@@ -102,13 +98,6 @@ MEDIA_ROOT = path('../media')
 # -----------------------------------------------------------------------------
 
 
-def sass_load_paths(*apps):
-    """
-    A helper to make cross-imports of scss files possible
-    """
-    return ' '.join('--include-path %s/static' % path(app)
-                    for app in apps)
-
 # BOWER SETTINGS --------------------------------------------------------------
 STATICFILES_FINDERS += (
     'djangobower.finders.BowerFinder',
@@ -120,9 +109,8 @@ BOWER_INSTALLED_APPS = (
     'normalize-scss#3',
     'include-media#1.4'
 )
-
-# './manage.py bower_install' - install bower apps
 # -----------------------------------------------------------------------------
+
 
 # PIPELINE SETTINGS -----------------------------------------------------------
 STATICFILES_FINDERS += (
@@ -130,16 +118,18 @@ STATICFILES_FINDERS += (
 )
 
 PIPELINE = {
+    'CSS_COMPRESSOR': None,
+    'DISABLE_WRAPPER': True,
+    'JS_COMPRESSOR': None,
+    'SASS_ARGUMENTS': '--include-path %s' % path('static'),
+    'SASS_BINARY': 'sassc',
+    'COFFEE_SCRIPT_ARGUMENTS': '-b',
     'STYLESHEETS': {},
     'JAVASCRIPT': {},
     'COMPILERS': (
-        'lib.sass.SASSCompiler',
         'pipeline.compilers.coffee.CoffeeScriptCompiler',
+        'pipeline.compilers.sass.SASSCompiler',
     ),
-    'CSS_COMPRESSOR': None,
-    'JS_COMPRESSOR': None,
-    'DISABLE_WRAPPER': True,
-    'SASS_ARGUMENTS': sass_load_paths('', ),
 }
 # -----------------------------------------------------------------------------
 

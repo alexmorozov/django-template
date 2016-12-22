@@ -1,6 +1,5 @@
-#--coding: utf8--
-
 # DO NOT IMPORT * from settings.common AS IT MASKS ENV`S IMPORTS!
+from {{ cookiecutter.project_name }}.settings.common import ALLOWED_HOSTS
 
 
 DATABASES = {
@@ -14,5 +13,6 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS += ['192.168.1.%d' % num for num in range(1, 255)]
 
 SECRET_KEY = '{{ cookiecutter.secret_key }}'

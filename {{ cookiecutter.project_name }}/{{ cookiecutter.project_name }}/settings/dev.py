@@ -1,5 +1,3 @@
-# --coding: utf8--
-
 from {{ cookiecutter.project_name }}.settings.common import *  # NOQA
 
 DEBUG = True
@@ -12,7 +10,7 @@ if not TEST:
     )
 
 
-INTERNAL_IPS = ['192.168.1.%d' % num for num in xrange(1, 255)]
+INTERNAL_IPS = ['192.168.1.%d' % num for num in range(1, 255)]
 
 
 def custom_show_toolbar(request):
